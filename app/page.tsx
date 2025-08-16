@@ -200,7 +200,7 @@ export default function StudentDashboard() {
             >
               <Menu className="h-6 w-6" />
             </Button>
-            <img src="/edulife-logo.png" alt="Edulife IT Institute" className="h-10 w-auto" />
+            <img src="/edulife-logo-horizontal.png" alt="Edulife IT Institute" className="h-10 w-auto" />
           </div>
 
           <div className="flex items-center gap-2">
@@ -1159,12 +1159,12 @@ export default function StudentDashboard() {
         <div className="p-8 space-y-8">
           <div className="text-center border-b border-slate-700 pb-6">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg">
-                <GraduationCap className="w-7 h-7 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg p-2">
+                <img src="/edulife-logo-icon.png" alt="Edulife IT Institute" className="w-full h-full object-contain" />
               </div>
               <div>
-                <h3 className="text-3xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Edulife IT Institute
+                <h3 className="text-3xl font-black bg-gradient-to-r from-yellow-400 to-yellow-500 bg-clip-text text-transparent">
+                  EDULIFE IT INSTITUTE
                 </h3>
                 <p className="text-slate-400 text-sm font-medium">Student Portal v1.0</p>
               </div>
