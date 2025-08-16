@@ -203,43 +203,44 @@ export default function StudentDashboard() {
             <img src="/edulife-logo.png" alt="Edulife IT Institute" className="h-10 w-auto" />
           </div>
 
-          {/* Student Profile in Header */}
-          <div className="hidden sm:flex items-center gap-4">
-            <div className="text-right">
-              <h2 className="text-lg font-bold text-primary-foreground">Afsan Habib</h2>
-              <p className="text-sm text-primary-foreground/80">Smart Kids • Morning</p>
-            </div>
-            <div className="relative">
-              <Avatar className="h-10 w-10 ring-2 ring-primary-foreground/20">
-                <AvatarImage src={studentData.avatar || "/placeholder.svg"} alt={studentData.name} />
-                <AvatarFallback className="bg-gradient-to-br from-primary-foreground/20 to-primary-foreground/10 text-primary-foreground text-sm font-bold">
-                  {studentData.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-primary flex items-center justify-center">
-                <CheckCircle className="h-2 w-2 text-primary" />
+          <div className="flex items-center gap-2">
+            {/* Student Profile - Hidden on mobile */}
+            <div className="hidden sm:flex items-center gap-4">
+              <div className="text-right">
+                <h2 className="text-lg font-bold text-primary-foreground">Afsan Habib</h2>
+                <p className="text-sm text-primary-foreground/80">Smart Kids • Morning</p>
+              </div>
+              <div className="relative">
+                <Avatar className="h-10 w-10 ring-2 ring-primary-foreground/20">
+                  <AvatarImage src={studentData.avatar || "/placeholder.svg"} alt={studentData.name} />
+                  <AvatarFallback className="bg-gradient-to-br from-primary-foreground/20 to-primary-foreground/10 text-primary-foreground text-sm font-bold">
+                    {studentData.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-primary flex items-center justify-center">
+                  <CheckCircle className="h-2 w-2 text-primary" />
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/20 rounded-xl transition-all duration-200"
-              >
-                <Sun className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/20 rounded-xl transition-all duration-200"
-              >
-                <LogOut className="h-5 w-5" />
-              </Button>
-            </div>
+            {/* Theme and Logout Icons - Now visible on all screen sizes */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground hover:bg-primary-foreground/20 rounded-xl transition-all duration-200"
+            >
+              <Sun className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground hover:bg-primary-foreground/20 rounded-xl transition-all duration-200"
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </header>
@@ -263,25 +264,9 @@ export default function StudentDashboard() {
                 height={32}
                 className="h-8 w-auto"
               />
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:bg-muted/50 rounded-xl transition-all duration-200"
-                >
-                  <Sun className="h-5 w-5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:bg-muted/50 rounded-xl transition-all duration-200"
-                >
-                  <LogOut className="h-5 w-5" />
-                </Button>
-                <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
+              <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)}>
+                <X className="h-5 w-5" />
+              </Button>
             </div>
           </div>
 
