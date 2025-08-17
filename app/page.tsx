@@ -29,6 +29,8 @@ import {
   Play,
   Send,
   Sun,
+  Share2,
+  Info,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -37,6 +39,8 @@ export default function StudentDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selectedAssignment, setSelectedAssignment] = useState(null)
   const [submissionUrl, setSubmissionUrl] = useState("")
+  const [submissionType, setSubmissionType] = useState("youtube")
+  const [facebookPostLink, setFacebookPostLink] = useState("")
 
   // Sample data based on the original UI
   const studentData = {
@@ -630,29 +634,83 @@ export default function StudentDashboard() {
                           <Upload className="h-5 w-5 text-secondary" />
                           Submit Your Video
                         </h3>
+
                         <div className="space-y-3">
-                          <label className="text-sm font-semibold">Video URL (YouTube, Vimeo, etc.)</label>
-                          <input
-                            type="url"
-                            value={submissionUrl}
-                            onChange={(e) => setSubmissionUrl(e.target.value)}
-                            placeholder="https://www.youtube.com/watch?v=..."
-                            className="w-full p-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                          />
+                          <label className="text-sm font-semibold">Choose Submission Method</label>
+                          <div className="flex gap-2">
+                            <Button
+                              variant={submissionType === "youtube" ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setSubmissionType("youtube")}
+                              className="flex items-center gap-2"
+                            >
+                              <Play className="h-4 w-4" />
+                              YouTube/Vimeo
+                            </Button>
+                            <Button
+                              variant={submissionType === "facebook" ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setSubmissionType("facebook")}
+                              className="flex items-center gap-2"
+                            >
+                              <Share2 className="h-4 w-4" />
+                              Facebook Group
+                            </Button>
+                          </div>
                         </div>
 
-                        {/* Preview submitted video */}
-                        {submissionUrl && (
-                          <div>
-                            <h4 className="font-semibold mb-2">Preview:</h4>
-                            <div className="aspect-video bg-black rounded-lg overflow-hidden">
-                              <iframe
-                                src={submissionUrl.replace("watch?v=", "embed/")}
-                                className="w-full h-full"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                              ></iframe>
+                        {submissionType === "youtube" && (
+                          <div className="space-y-3">
+                            <label className="text-sm font-semibold">Video URL (YouTube, Vimeo, etc.)</label>
+                            <input
+                              type="url"
+                              value={submissionUrl}
+                              onChange={(e) => setSubmissionUrl(e.target.value)}
+                              placeholder="https://www.youtube.com/watch?v=..."
+                              className="w-full p-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+
+                            {/* Preview submitted video */}
+                            {submissionUrl && (
+                              <div>
+                                <h4 className="font-semibold mb-2">Preview:</h4>
+                                <div className="aspect-video bg-black rounded-lg overflow-hidden">
+                                  <iframe
+                                    src={submissionUrl.replace("watch?v=", "embed/")}
+                                    className="w-full h-full"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                  ></iframe>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {submissionType === "facebook" && (
+                          <div className="space-y-3">
+                            <label className="text-sm font-semibold">Facebook Group Post Link</label>
+                            <input
+                              type="url"
+                              value={facebookPostLink}
+                              onChange={(e) => setFacebookPostLink(e.target.value)}
+                              placeholder="https://www.facebook.com/groups/your-group/posts/..."
+                              className="w-full p-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                              <div className="flex items-start gap-2">
+                                <Info className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                                <div className="text-sm text-blue-800">
+                                  <p className="font-semibold mb-1">How to get Facebook post link:</p>
+                                  <ol className="list-decimal list-inside space-y-1 text-xs">
+                                    <li>Post your video in the Facebook group</li>
+                                    <li>Click the three dots (...) on your post</li>
+                                    <li>Select "Copy link"</li>
+                                    <li>Paste the link here</li>
+                                  </ol>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         )}
@@ -660,12 +718,16 @@ export default function StudentDashboard() {
                         <div className="flex gap-3 pt-4">
                           <Button
                             onClick={() => {
-                              // Handle submission logic here
-                              alert(`Assignment submitted with video: ${submissionUrl}`)
+                              const submissionData = submissionType === "youtube" ? submissionUrl : facebookPostLink
+                              alert(
+                                `Assignment submitted via ${submissionType === "youtube" ? "YouTube/Vimeo" : "Facebook Group"}: ${submissionData}`,
+                              )
                               setSelectedAssignment(null)
                               setSubmissionUrl("")
+                              setFacebookPostLink("")
+                              setSubmissionType("youtube")
                             }}
-                            disabled={!submissionUrl}
+                            disabled={submissionType === "youtube" ? !submissionUrl : !facebookPostLink}
                             className="bg-primary hover:bg-primary/90"
                           >
                             <Send className="h-4 w-4 mr-2" />
@@ -676,6 +738,8 @@ export default function StudentDashboard() {
                             onClick={() => {
                               setSelectedAssignment(null)
                               setSubmissionUrl("")
+                              setFacebookPostLink("")
+                              setSubmissionType("youtube")
                             }}
                           >
                             Cancel
